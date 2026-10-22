@@ -51,6 +51,7 @@ agent = Agent(
 
 # --- Interface web de chat ---
 app = agent.to_web(
+    allowed_hosts=["chatbot-buddy-agent.onrender.com"],
     models={
         "GPT-4o Mini": gpt_model,
         "Claude 4.5 Haiku": haiku_model,
