@@ -14,6 +14,7 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 SCOPES = [
     "https://www.googleapis.com/auth/calendar.events",
     "https://www.googleapis.com/auth/drive.readonly",
+    "https://www.googleapis.com/auth/gmail.send",
 ]
 
 

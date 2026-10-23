@@ -3,7 +3,7 @@ from tools.drive_tool import rechercher_fichiers_drive
 from .meteo import obtenir_meteo
 from .recherche import recherche_web
 from .notion_tool import ajouter_note_notion
-from .send_mail import envoyer_email
+from .gmail_tool import envoyer_email
 from .calendar_tool import (
     lister_evenements_calendar,
     creer_evenement_calendar,
