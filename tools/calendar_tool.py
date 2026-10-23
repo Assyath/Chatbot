@@ -1,43 +1,19 @@
 import os
 import datetime
-from google.auth.transport.requests import Request
-from google.oauth2.credentials import Credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
-from googleapiclient.discovery import build
-from dotenv import load_dotenv
+from tools.google_auth import obtenir_service_google
+# from google.auth.transport.requests import Request
+# from google.oauth2.credentials import Credentials
+# from google_auth_oauthlib.flow import InstalledAppFlow
+# from googleapiclient.discovery import build
+# from dotenv import load_dotenv
 
-load_dotenv()
+# load_dotenv()
 
 # Portée d'accès (Scope) requise pour lire et modifier le calendrier
-SCOPES = ['https://www.googleapis.com/auth/calendar.events']
+# SCOPES = ['https://www.googleapis.com/auth/calendar.events']
 
 def _obtenir_service_calendar():
-    """Fonction interne pour authentifier et obtenir le client de l'API Google Calendar."""
-    creds = None
-    # Le fichier token.json stocke les privilèges d'accès utilisateur de manière permanente
-    if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
-        
-    # Si le jeton n'est pas valide ou inexistant, on lance le flux de connexion par navigateur
-        # Si le jeton n'est pas valide ou inexistant, on lance le flux de connexion
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            if not os.path.exists('credentials.json'):
-                raise FileNotFoundError("Erreur : Le fichier 'credentials.json' est absent à la racine du projet.")
-            
-            # Utilisation du flux natif 
-            flow = InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES)
-            creds = flow.run_local_server(port=0)  # Ou flow.run_console() 
-            
-        # Sauvegarde du jeton à l'aide de l'API fournie par Credentials.
-        with open('token.json', 'w') as token:
-            token.write(creds.to_json())
-
-
-    return build('calendar', 'v3', credentials=creds)
-
+    return obtenir_service_google("calendar", "v3")
 
 def lister_evenements_calendar(date_debut_iso: str = None, date_fin_iso: str = None) -> str:
     """
