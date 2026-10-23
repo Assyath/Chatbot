@@ -1,6 +1,6 @@
 from datetime import datetime
 import os
-
+from pathlib import Path
 from dotenv import load_dotenv
 from pydantic_ai import Agent
 from pydantic_ai.models.openai import OpenAIChatModel
@@ -56,4 +56,5 @@ app = agent.to_web(
         "GPT-4o Mini": gpt_model,
         "Claude 4.5 Haiku": haiku_model,
     },
+    html_source=str(Path(__file__).parent / "ui" / "index.html"),
 )
